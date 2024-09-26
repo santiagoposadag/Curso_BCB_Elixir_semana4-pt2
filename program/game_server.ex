@@ -63,6 +63,10 @@ defmodule GameServer do
           Map.update(state, player_name, score, &(&1 + score))
 
         {:leaderboard, caller_pid} ->
+          # state = %{playerName: score}
+          # state = %{Victor: 100, Pepe: 200, Maria: 300}
+          # [{:Maria, 300}, {:Pepe, 200}, {:Victor, 100}]
+          # {:Maria, 300}
           leaderboard = Enum.sort_by(state, &elem(&1, 1), &>=/2)
           send(caller_pid, {:response, leaderboard})
           state
